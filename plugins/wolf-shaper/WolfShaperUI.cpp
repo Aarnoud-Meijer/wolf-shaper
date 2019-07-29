@@ -32,7 +32,7 @@ WolfShaperUI::WolfShaperUI() : UI(611, 662),
     WolfShaperConfig::load();
 
     tryRememberSize();
-    getParentWindow().saveSizeAtExit(true);
+    //getParentWindow().saveSizeAtExit(true);
 
     const float width = getWidth();
     const float height = getHeight();
@@ -199,7 +199,8 @@ void WolfShaperUI::positionWidgets(uint width, uint height)
     const float graphBarMargin = 6;
 
     fGraphWidget->setSize(width - graphMargin * 2, height - graphMargin * 2 - bottomBarSize - graphBarHeight);
-    fGraphWidget->setAbsolutePos(graphMargin, graphMargin);
+    //fGraphWidget->setAbsolutePos(graphMargin, graphMargin);
+    fGraphWidget->setAbsolutePos(0, 0);
 
     const float graphBottom = fGraphWidget->getAbsoluteY() + fGraphWidget->getHeight();
 

@@ -6,7 +6,7 @@
 # Modified by Patrick Desaulniers
 #
 
-include Makefile.mk
+include dpf/Makefile.base.mk
 
 all: libs plugins gen
 
@@ -15,6 +15,9 @@ all: libs plugins gen
 PREFIX  ?= /usr/local
 DESTDIR ?=
 VST_FOLDER_NAME ?= vst
+
+export DISTRHO_NAMESPACE=WolfTrackerDISTRHO
+export DGL_NAMESPACE=WolfTrackerDGL
 
 define MISSING_SUBMODULES_ERROR
 
@@ -30,10 +33,8 @@ submodules:
 libs:
 ifeq (,$(wildcard dpf/dgl))
 	$(error $(MISSING_SUBMODULES_ERROR))
-endif
-
-ifeq ($(HAVE_DGL),true)
-	$(MAKE) -C dpf/dgl
+else
+	$(MAKE) -C dpf/dgl DGL_FLAGS="$(DGL_FLAGS) -DDISTRHO_NAMESPACE=$(DISTRHO_NAMESPACE) -DDGL_NAMESPACE=$(DGL_NAMESPACE)"
 endif
 
 plugins: libs
@@ -55,7 +56,6 @@ ifeq ($(HAVE_DGL),true)
 	$(MAKE) clean -C dpf/dgl
 endif
 	$(MAKE) clean -C dpf/utils/lv2-ttl-generator
-
 	$(MAKE) clean -C plugins/wolf-shaper
 
 # --------------------------------------------------------------
@@ -67,7 +67,6 @@ install:
 
 	cp bin/*-dssi.*   $(DESTDIR)$(PREFIX)/lib/dssi/
 	cp bin/*-vst.*    "$(DESTDIR)$(PREFIX)/lib/$(VST_FOLDER_NAME)/"
-
 
 ifeq ($(HAVE_DGL),true)
 	cp -r bin/*-dssi  $(DESTDIR)$(PREFIX)/lib/dssi/

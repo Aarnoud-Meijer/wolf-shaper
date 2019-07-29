@@ -45,8 +45,7 @@ class WolfShaper : public Plugin
 				   removeDCPrev{0.f, 0.f},
 				   mustCopyLineEditor(false),
 				   inputIndicatorPos(0.0f),
-				   inputIndicatorAcceleration(0.0f),
-				   removeDCPrev{0.f, 0.f}
+				   inputIndicatorAcceleration(0.0f)
 	{
 	}
 
